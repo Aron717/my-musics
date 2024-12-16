@@ -1,9 +1,16 @@
+"use server"
 
+import { auth } from "@/lib/auth";
 
-export default function Home() {
+export default async function Home() {
+  const session = await auth()
   return (
     <main className="">
-      <h1>Hello</h1>
+      {session ? (
+        <>
+          <h1>Hello {session.user?.email}</h1>
+          <img src={session.user?.image || ""} alt="anyad" />
+        </>) : null}
     </main>
   );
 }
